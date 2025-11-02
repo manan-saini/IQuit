@@ -61,6 +61,8 @@ function initializeEventListeners() {
     document.getElementById('donate-btn').addEventListener('click', donateSavings);
     document.getElementById('continue-phase1-complete-btn').addEventListener('click', showPhase1Complete);
     document.getElementById('continue-phase2-btn').addEventListener('click', goToPhase2);
+    const continueArticleBtn = document.getElementById('continue-article-btn');
+    if (continueArticleBtn) continueArticleBtn.addEventListener('click', goToArticle);
     document.getElementById('start-doxing-btn').addEventListener('click', startDoxing);
     document.getElementById('continue-complete-btn').addEventListener('click', completeAllPhases);
     
@@ -266,14 +268,19 @@ function updateProgressBar() {
 function goToPhase2() {
     currentPhase = 2;
     updateProgressBar();
-    
-    // Fill in the user's name in the article and go directly to scandal screen
+    showScreen('social-sim-screen');
+}
+
+function goToArticle() {
+    // Fill in the user's name in the article
     const fullName = userData.name;
-    document.getElementById('article-name-1').textContent = fullName;
-    document.getElementById('article-name-2').textContent = fullName;
-    document.getElementById('article-name-3').textContent = fullName;
-    
-    showScreen('social-screen');
+    const n1 = document.getElementById('article-name-1');
+    const n2 = document.getElementById('article-name-2');
+    const n3 = document.getElementById('article-name-3');
+    if (n1) n1.textContent = fullName;
+    if (n2) n2.textContent = fullName;
+    if (n3) n3.textContent = fullName;
+    showScreen('social-article-screen');
 }
 
 function completeAllPhases() {

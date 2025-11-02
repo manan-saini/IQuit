@@ -7,27 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <div class="logo-badge">CERTIFIED</div>
-        <h1 class="title">I QUIT</h1>
-        <p class="subtitle">Phone Simulator (Rude AI)</p>
-
-        <div class="phone-sim-card">
-            <div class="card-icon">📱</div>
-            <h3>Phone Simulator (Rude AI)</h3>
-            <p class="card-description">Chat with the rudest LLM alive. It's not here to help.</p>
-
-            
-
-            <div class="phone-frame">
-                <div class="phone-notch"></div>
-                <div class="phone-header">Messages</div>
-                <div id="chat-messages" class="phone-chat"></div>
-                <div class="phone-input-bar">
-                    <input id="chat-input" type="text" placeholder="iMessage" autocomplete="off" />
-                    <button id="chat-send" class="phone-send">Send</button>
-                </div>
-            </div>
+    <div class="sim-root">
+        <div class="phone-header">Messages</div>
+        <div id="chat-messages" class="phone-chat"></div>
+        <div class="phone-input-bar">
+            <input id="chat-input" type="text" placeholder="iMessage" autocomplete="off" />
+            <button id="chat-send" class="phone-send">Send</button>
         </div>
     </div>
 
