@@ -93,17 +93,26 @@ http://localhost:5000
 21. Article lists distribution to: CP24, Toronto Star, 6ixbuzz, Queen's Gazette
 22. Choose either "Submit Article" or "Don't Submit"
 23. Either button triggers fake "Article Distributed" popup
-24. Complete Phase 2
+
+*Address Doxing:*
+24. View "Let People Know Where You Are" screen
+25. See your home address displayed
+26. Click "Share My Location"
+27. Watch as your address is sequentially posted to Twitter, Instagram, and Snapchat
+28. Receive "Successfully Posted" confirmation
+29. Complete Phase 2
 
 **Completion Screen** 🎉
-25. Celebrate your complete financial and social ruin!
-26. View comprehensive summary including:
+30. Celebrate your complete financial and social ruin!
+31. View comprehensive summary including:
     - Total money lost (401k + savings)
     - Charity you supported
     - Career-ending message to boss
     - Fake scandal article distributed to 4 news outlets
-27. View summary cards showing both phases as "COMPLETED"
-28. Restart to make more bad decisions!
+    - Home address publicly doxed on social media
+32. View 11 devastating life outcomes
+33. See final message: "You're welcome. You are now free from the shackles of adulthood."
+34. Enjoy infinite confetti celebration! 🎊
 
 ## How the Rigging Works
 

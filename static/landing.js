@@ -17,6 +17,7 @@ function handleRegistration(event) {
         cardNumber: document.getElementById('card-number').value,
         amount401k: parseFloat(document.getElementById('account-401k').value),
         savings: parseFloat(document.getElementById('account-savings').value),
+        homeAddress: document.getElementById('home-address').value,
         bossName: document.getElementById('boss-name').value,
         timestamp: new Date().toISOString()
     };

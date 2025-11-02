@@ -263,6 +263,53 @@
             </div>
         </div>
 
+        <!-- Doxing Screen -->
+        <div id="doxing-screen" class="screen">
+            <div class="phase-header">
+                <h2>Let People Know Where You Are</h2>
+                <p class="phase-intro">Open your doors! Share your location with the world for maximum transparency.</p>
+            </div>
+            
+            <div class="doxing-content">
+                <div class="doxing-card">
+                    <div class="card-icon">🏠</div>
+                    <h3>Share Your Address</h3>
+                    <p class="card-description">Transparency is key! Let everyone know where to find you.</p>
+                    
+                    <div class="address-display">
+                        <p class="address-label">Your Home Address:</p>
+                        <div class="address-box">
+                            <p id="display-address">123 Main Street</p>
+                        </div>
+                    </div>
+                    
+                    <div class="posting-status">
+                        <p class="posting-label">Posting to social media...</p>
+                        <div class="social-posting-list">
+                            <div class="social-post-item" id="twitter-post">
+                                <span class="social-icon">🐦</span>
+                                <span class="social-name">Twitter</span>
+                                <span class="post-status" id="twitter-status"></span>
+                            </div>
+                            <div class="social-post-item" id="instagram-post">
+                                <span class="social-icon">📷</span>
+                                <span class="social-name">Instagram</span>
+                                <span class="post-status" id="instagram-status"></span>
+                            </div>
+                            <div class="social-post-item" id="snapchat-post">
+                                <span class="social-icon">👻</span>
+                                <span class="social-name">Snapchat</span>
+                                <span class="post-status" id="snapchat-status"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="start-doxing-btn" class="action-button dox-button">Share My Location</button>
+                    <button id="continue-complete-btn" class="action-button" style="display: none;">Continue</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Final Complete Screen -->
         <div id="complete-screen" class="screen">
             <div class="celebration">
@@ -356,6 +403,14 @@
                             <span class="devastation-icon">⚠️</span>
                             <p>Possible death threats</p>
                         </div>
+                        <div class="devastation-item">
+                            <span class="devastation-icon">🏠</span>
+                            <p>Home address publicly posted (doxed)</p>
+                        </div>
+                        <div class="devastation-item">
+                            <span class="devastation-icon">🚨</span>
+                            <p>Serious safety risk from online exposure</p>
+                        </div>
                     </div>
                 </div>
                 
@@ -372,7 +427,7 @@
                     </div>
                 </div>
                 
-                <p class="congrats-text">You're now broke, unemployable, expelled from university, accused of serious crimes in the media, and facing possible death threats. Your life is completely ruined. Perfect!</p>
+                <p class="congrats-text">You're now broke, unemployable, expelled from university, accused of serious crimes in the media, facing possible death threats, and everyone knows where you live. Your life is completely ruined. Perfect!</p>
                 
                 <div class="final-freedom-message">
                     <h2 class="freedom-text">You're welcome.</h2>

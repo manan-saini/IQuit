@@ -1283,6 +1283,107 @@ h2 {
     z-index: 9999;
 }
 
+/* Doxing Screen */
+.doxing-content {
+    margin: 40px 0;
+}
+
+.doxing-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.address-display {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.address-label {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.address-box {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+    border: 2px solid #0e4595;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.address-box p {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0e4595;
+    margin: 0;
+}
+
+.posting-status {
+    margin: 30px 0;
+}
+
+.posting-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #424242;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.social-posting-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.social-post-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #f9f9f9;
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.social-icon {
+    font-size: 2rem;
+}
+
+.social-name {
+    flex: 1;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #424242;
+}
+
+.post-status {
+    font-size: 1rem;
+    font-weight: 700;
+    min-width: 80px;
+    text-align: right;
+}
+
+.dox-button {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    margin-top: 20px;
+}
+
+.dox-button:hover {
+    background: linear-gradient(135deg, #ff8787 0%, #ff6b6b 100%);
+}
+
+.dox-button:disabled {
+    background: linear-gradient(135deg, #999 0%, #777 100%);
+    cursor: not-allowed;
+}
+
 /* Complete Screen */
 .celebration {
     padding: 20px 0;
@@ -1556,6 +1657,14 @@ h2 {
     
     .review-section {
         padding: 20px 15px;
+    }
+    
+    .doxing-card {
+        padding: 30px 20px;
+    }
+    
+    .address-box p {
+        font-size: 1.1rem;
     }
     
     .popup-box {

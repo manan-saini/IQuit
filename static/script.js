@@ -60,6 +60,8 @@ function initializeEventListeners() {
     document.getElementById('donate-btn').addEventListener('click', donateSavings);
     document.getElementById('continue-phase1-complete-btn').addEventListener('click', showPhase1Complete);
     document.getElementById('continue-phase2-btn').addEventListener('click', goToPhase2);
+    document.getElementById('start-doxing-btn').addEventListener('click', startDoxing);
+    document.getElementById('continue-complete-btn').addEventListener('click', completeAllPhases);
     
     // Color selection buttons
     document.querySelectorAll('.color-btn').forEach(btn => {
@@ -74,9 +76,56 @@ function submitScandal() {
         '📰 Article Distributed',
         `Your article has been successfully sent to CP24, Toronto Star, 6ixbuzz, and Queen's Gazette.\n\nExpect to see it in the news cycle within 24-48 hours.\n\n✅ Distribution Complete`,
         () => {
-            completeAllPhases();
+            showDoxingScreen();
         }
     );
+}
+
+function showDoxingScreen() {
+    // Display user's address
+    document.getElementById('display-address').textContent = userData.homeAddress;
+    
+    // Reset status indicators
+    document.getElementById('twitter-status').textContent = '';
+    document.getElementById('instagram-status').textContent = '';
+    document.getElementById('snapchat-status').textContent = '';
+    document.getElementById('start-doxing-btn').style.display = 'block';
+    document.getElementById('continue-complete-btn').style.display = 'none';
+    
+    showScreen('doxing-screen');
+}
+
+function startDoxing() {
+    const button = document.getElementById('start-doxing-btn');
+    button.disabled = true;
+    button.textContent = 'Posting...';
+    
+    // Sequential posting animation
+    setTimeout(() => {
+        document.getElementById('twitter-status').textContent = '✓ Sent';
+        document.getElementById('twitter-status').style.color = '#1DA1F2';
+    }, 1000);
+    
+    setTimeout(() => {
+        document.getElementById('instagram-status').textContent = '✓ Sent';
+        document.getElementById('instagram-status').style.color = '#E4405F';
+    }, 2000);
+    
+    setTimeout(() => {
+        document.getElementById('snapchat-status').textContent = '✓ Sent';
+        document.getElementById('snapchat-status').style.color = '#FFFC00';
+    }, 3000);
+    
+    setTimeout(() => {
+        showPopup(
+            '✅ Successfully Posted',
+            `Your home address has been publicly posted to:\n\n🐦 Twitter\n📷 Instagram\n👻 Snapchat\n\nEveryone now knows where you live!`,
+            () => {
+                button.style.display = 'none';
+                document.getElementById('continue-complete-btn').style.display = 'block';
+            }
+        );
+    }, 4000);
 }
 
 function goToCharityScreen() {
