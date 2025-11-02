@@ -1283,6 +1283,66 @@ h2 {
     z-index: 9999;
 }
 
+/* Satisfied Clientele Section */
+.clientele-section {
+    margin: 50px 0 20px;
+    padding: 30px;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    border-radius: 16px;
+    border: 3px solid #e0e0e0;
+}
+
+.clientele-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0e4595;
+    text-align: center;
+    margin-bottom: 25px;
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
+}
+
+.clientele-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.clientele-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+    color: white;
+    text-decoration: none;
+    padding: 20px 40px;
+    border-radius: 12px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    box-shadow: 0 6px 20px rgba(14, 69, 149, 0.4);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.clientele-button:hover {
+    background: linear-gradient(135deg, #2196f3 0%, #1565c0 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(14, 69, 149, 0.5);
+}
+
+.clientele-button:active {
+    transform: translateY(-1px);
+}
+
+.button-icon {
+    font-size: 1.8rem;
+}
+
+.button-text {
+    line-height: 1;
+}
+
 /* Doxing Screen */
 .doxing-content {
     margin: 40px 0;
@@ -1669,6 +1729,19 @@ h2 {
     
     .popup-box {
         padding: 30px 20px;
+    }
+    
+    .clientele-section {
+        padding: 20px 15px;
+    }
+    
+    .clientele-title {
+        font-size: 1.5rem;
+    }
+    
+    .clientele-button {
+        font-size: 1.1rem;
+        padding: 18px 30px;
     }
 }
 
