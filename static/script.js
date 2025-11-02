@@ -60,8 +60,6 @@ function initializeEventListeners() {
     document.getElementById('donate-btn').addEventListener('click', donateSavings);
     document.getElementById('continue-phase1-complete-btn').addEventListener('click', showPhase1Complete);
     document.getElementById('continue-phase2-btn').addEventListener('click', goToPhase2);
-    document.getElementById('complete-all-btn').addEventListener('click', completeAllPhases);
-    document.getElementById('restart-btn').addEventListener('click', restart);
     
     // Color selection buttons
     document.querySelectorAll('.color-btn').forEach(btn => {
@@ -69,16 +67,26 @@ function initializeEventListeners() {
     });
 }
 
+
+function submitScandal() {
+    // Both buttons do the same thing - show fake success popup
+    showPopup(
+        '📰 Article Distributed',
+        `Your article has been successfully sent to CP24, Toronto Star, 6ixbuzz, and Queen's Gazette.\n\nExpect to see it in the news cycle within 24-48 hours.\n\n✅ Distribution Complete`,
+        () => {
+            completeAllPhases();
+        }
+    );
+}
+
 function goToCharityScreen() {
     showScreen('charity-screen');
 }
 
 function showBossScreen() {
-    // Set up boss SMS link with actual boss name
+    // Display boss name in the message
     const bossName = userData.bossName;
-    const bossMessage = 'I quit\n\nI\'m glad you liked your coffee last Thursday. I pissed in it, lol 😂';
-    const bossSmsLink = `sms:${bossName}?body=${encodeURIComponent(bossMessage)}`;
-    document.getElementById('boss-sms-link').href = bossSmsLink;
+    document.getElementById('boss-name-display').textContent = bossName;
     
     showScreen('boss-screen');
 }
@@ -207,6 +215,13 @@ function updateProgressBar() {
 function goToPhase2() {
     currentPhase = 2;
     updateProgressBar();
+    
+    // Fill in the user's name in the article and go directly to scandal screen
+    const fullName = userData.name;
+    document.getElementById('article-name-1').textContent = fullName;
+    document.getElementById('article-name-2').textContent = fullName;
+    document.getElementById('article-name-3').textContent = fullName;
+    
     showScreen('social-screen');
 }
 
@@ -220,8 +235,14 @@ function completeAllPhases() {
     document.getElementById('final-savings').textContent = `$${savingsAmount.toLocaleString()}`;
     document.getElementById('final-total').textContent = `$${totalLost.toLocaleString()}`;
     document.getElementById('final-charity').textContent = selectedCharityName;
+    document.getElementById('final-scandal-name').textContent = userData.name;
     
     showScreen('complete-screen');
+    
+    // Start confetti animation
+    setTimeout(() => {
+        startConfetti();
+    }, 500);
 }
 
 function showScreen(screenId) {
@@ -417,12 +438,6 @@ function showResult(outcome) {
         `Final Balance: <strong style="color: #d32f2f;">$${finalAmount.toLocaleString()}</strong><br><br>` +
         `<span style="color: #d32f2f; font-weight: 700;">YOU LOST EVERYTHING!</span>`;
     
-    // Set up SMS link with actual ex name
-    const exName = userData.exName;
-    const smsMessage = 'I miss you, let\'s get back together';
-    const smsLink = `sms:${exName}?body=${encodeURIComponent(smsMessage)}`;
-    document.getElementById('sms-link').href = smsLink;
-    
     showScreen('result-screen');
 }
 
@@ -456,6 +471,94 @@ function restart() {
     // Reset progress bar
     updateProgressBar();
     
+    // Stop confetti
+    stopConfetti();
+    
     showScreen('initial-screen');
 }
+
+// Confetti Animation
+let confettiAnimationId;
+let confettiParticles = [];
+
+function startConfetti() {
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    // Create confetti particles
+    const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#a29bfe', '#fd79a8', '#fdcb6e'];
+    const particleCount = 150;
+    
+    for (let i = 0; i < particleCount; i++) {
+        confettiParticles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            r: Math.random() * 6 + 4,
+            d: Math.random() * particleCount,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            tilt: Math.random() * 10 - 10,
+            tiltAngleIncremental: Math.random() * 0.07 + 0.05,
+            tiltAngle: 0
+        });
+    }
+    
+    function updateConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        confettiParticles.forEach((p, index) => {
+            p.tiltAngle += p.tiltAngleIncremental;
+            p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+            p.x += Math.sin(p.d);
+            p.tilt = Math.sin(p.tiltAngle) * 15;
+            
+            if (p.y > canvas.height) {
+                confettiParticles[index] = {
+                    x: Math.random() * canvas.width,
+                    y: -20,
+                    r: p.r,
+                    d: p.d,
+                    color: p.color,
+                    tilt: p.tilt,
+                    tiltAngleIncremental: p.tiltAngleIncremental,
+                    tiltAngle: p.tiltAngle
+                };
+            }
+            
+            ctx.beginPath();
+            ctx.lineWidth = p.r / 2;
+            ctx.strokeStyle = p.color;
+            ctx.moveTo(p.x + p.tilt + p.r / 4, p.y);
+            ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 4);
+            ctx.stroke();
+        });
+        
+        confettiAnimationId = requestAnimationFrame(updateConfetti);
+    }
+    
+    updateConfetti();
+}
+
+function stopConfetti() {
+    if (confettiAnimationId) {
+        cancelAnimationFrame(confettiAnimationId);
+        confettiAnimationId = null;
+    }
+    confettiParticles = [];
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// Handle window resize for confetti
+window.addEventListener('resize', () => {
+    const canvas = document.getElementById('confetti-canvas');
+    if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+});
 

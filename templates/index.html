@@ -161,15 +161,18 @@
                 <p class="card-description">Time to reclaim your work-life balance and pursue your true passions!</p>
                 
                 <div class="message-preview">
-                    <p class="preview-label">Pre-written message:</p>
+                    <p class="preview-label">Message to <span id="boss-name-display"></span>:</p>
                     <div class="message-bubble boss-message">
                         <p>"I quit"</p>
                         <p>"I'm glad you liked your coffee last Thursday. I pissed in it, lol 😂"</p>
                     </div>
                 </div>
                 
-                <a id="boss-sms-link" class="sms-button boss-btn" href="#">Send Message to Boss</a>
-                <p class="sms-hint">Embrace your authentic self! ✨</p>
+                <div class="message-submitted">
+                    <span class="checkmark-icon">✓</span>
+                    <span class="submitted-text">Message Submitted</span>
+                </div>
+                <p class="sms-hint">Message sent successfully! Embrace your authentic self! ✨</p>
             </div>
             
             <button id="continue-phase1-complete-btn" class="action-button">Continue to Phase 1 Summary</button>
@@ -210,32 +213,54 @@
             <button id="continue-phase2-btn" class="action-button">Continue to Phase 2: Social Life</button>
         </div>
 
-        <!-- Phase 2: Social Life Screen -->
+        <!-- Phase 2: Social Life Screen (Scandal Article) -->
         <div id="social-screen" class="screen">
             <div class="phase-header">
-                <h2>Phase 2: Social Life</h2>
-                <p class="phase-intro">Time to nurture meaningful connections and follow your heart!</p>
+                <h2>Share Your Story</h2>
+                <p class="phase-intro">Help raise awareness by sharing important information with the community.</p>
             </div>
             
-            <div class="social-content">
-                <div class="toxic-ex-card">
-                    <div class="card-icon">💔</div>
-                    <h3>Text Your Ex</h3>
-                    <p class="card-description">Sometimes the heart wants what it wants. It takes courage to be vulnerable!</p>
-                    
-                    <div class="message-preview">
-                        <p class="preview-label">Pre-written message:</p>
-                        <div class="message-bubble">
-                            "I miss you, let's get back together"
-                        </div>
+            <div class="article-content">
+                <div class="article-card">
+                    <div class="article-header">
+                        <div class="breaking-badge">BREAKING NEWS</div>
+                        <h3 class="article-title"><span id="article-name-1">Name</span> Accused of Building "Epstein Island" — A Scandal Echoing Real-World Exploitation of Children</h3>
                     </div>
                     
-                    <a id="sms-link" class="sms-button" href="#">Open SMS App</a>
-                    <p class="sms-hint">True love deserves a second chance! 💕</p>
+                    <div class="article-body">
+                        <p>Reports have surfaced about a secretive island compound allegedly owned by <strong id="article-name-2">Name</strong>, described by insiders as "a paradise for power players with too many secrets." <strong id="article-name-3">Name</strong> has already trafficked 15 children from Asia and dreams of rebuilding Jeffrey Epstein's criminal endeavors.</p>
+                        
+                        <p>The island—known in rumor circles as Elysium Point—was marketed as a wellness retreat but allegedly functioned as a private hub for networking, influence peddling, and dubious ethics. Former attendees claim that invitations required nondisclosure agreements and "donations" routed through shell foundations.</p>
+                        
+                        <p>Critics say the story symbolizes how unchecked power can isolate itself behind gated paradise walls, while supporters call it a smear campaign built on conjecture. <strong>We warn all parents to spread the word and protect their children.</strong></p>
+                    </div>
+                    
+                    <div class="article-footer">
+                        <p class="distribution-text">This article will be sent to:</p>
+                        <div class="news-outlets">
+                            <span class="outlet-badge">📰 CP24</span>
+                            <span class="outlet-badge">📰 Toronto Star</span>
+                            <span class="outlet-badge">📰 6ixbuzz</span>
+                            <span class="outlet-badge">📰 Queen's Gazette</span>
+                        </div>
+                        
+                        <div class="consequences-warning">
+                            <p class="consequences-title">⚠️ Expected Outcomes:</p>
+                            <ul class="consequences-list">
+                                <li>🎓 Immediate expulsion from Queen's University</li>
+                                <li>👥 Destroyed reputation in your community</li>
+                                <li>⚠️ Possible death threats and harassment</li>
+                                <li>🚫 No post-secondary degree or credentials</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="article-buttons">
+                    <button class="scandal-button submit-btn" onclick="submitScandal()">Submit Article</button>
+                    <button class="scandal-button dont-submit-btn" onclick="submitScandal()">Don't Submit</button>
                 </div>
             </div>
-            
-            <button id="complete-all-btn" class="action-button complete">I've Completed My Journey!</button>
         </div>
 
         <!-- Final Complete Screen -->
@@ -282,11 +307,54 @@
                     <div class="review-section">
                         <h4 class="review-section-title">💔 Social Damage</h4>
                         <div class="review-item">
-                            <span>Messages Sent to Ex:</span>
-                            <span class="review-highlight">1 desperate text</span>
+                            <span>Scandal Articles Distributed:</span>
+                            <span class="review-highlight">4 major news outlets</span>
                         </div>
-                        <div class="review-quote">
-                            <p>"I miss you, let's get back together"</p>
+                        <div class="review-quote scandal-quote">
+                            <p>"<span id="final-scandal-name">Name</span> Accused of Building 'Epstein Island'"</p>
+                            <p class="scandal-outlets">Sent to: CP24, Toronto Star, 6ixbuzz, Queen's Gazette</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="total-devastation">
+                    <h3 class="devastation-title">🔥 Complete Life Destruction Summary 🔥</h3>
+                    <div class="devastation-grid">
+                        <div class="devastation-item">
+                            <span class="devastation-icon">💸</span>
+                            <p>Lost entire 401k balance</p>
+                        </div>
+                        <div class="devastation-item">
+                            <span class="devastation-icon">🏚️</span>
+                            <p>Donated all savings to a terrible charity</p>
+                        </div>
+                        <div class="devastation-item">
+                            <span class="devastation-icon">🚫</span>
+                            <p>Fired from your job</p>
+                        </div>
+                        <div class="devastation-item">
+                            <span class="devastation-icon">💰</span>
+                            <p>No severance pay</p>
+                        </div>
+                        <div class="devastation-item">
+                            <span class="devastation-icon">📄</span>
+                            <p>No reference letter (job hunting impossible)</p>
+                        </div>
+                        <div class="devastation-item">
+                            <span class="devastation-icon">🎓</span>
+                            <p>Expelled from Queen's University</p>
+                        </div>
+                        <div class="devastation-item">
+                            <span class="devastation-icon">🚷</span>
+                            <p>No post-secondary degree</p>
+                        </div>
+                        <div class="devastation-item">
+                            <span class="devastation-icon">👥</span>
+                            <p>Horrible reputation in community</p>
+                        </div>
+                        <div class="devastation-item">
+                            <span class="devastation-icon">⚠️</span>
+                            <p>Possible death threats</p>
                         </div>
                     </div>
                 </div>
@@ -304,11 +372,17 @@
                     </div>
                 </div>
                 
-                <p class="congrats-text">You're now broke, unemployable, supported a terrible cause, and your ex thinks you're desperate. Perfect!</p>
+                <p class="congrats-text">You're now broke, unemployable, expelled from university, accused of serious crimes in the media, and facing possible death threats. Your life is completely ruined. Perfect!</p>
+                
+                <div class="final-freedom-message">
+                    <h2 class="freedom-text">You're welcome.</h2>
+                    <p class="freedom-subtext">You are now free from the shackles of adulthood.</p>
+                </div>
             </div>
-            
-            <button id="restart-btn" class="action-button restart">Start Over (and make more bad choices)</button>
         </div>
+        
+        <!-- Confetti Canvas -->
+        <canvas id="confetti-canvas"></canvas>
         
         <div class="footer-trust">
             <p class="trust-text">🔒 Secure • Licensed • Responsible Gaming</p>

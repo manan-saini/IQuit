@@ -10,7 +10,7 @@ A "stupid" hackathon project that simulates making terrible life choices while g
 - 🏚️ **Terrible Charities**: Donate your savings to hilariously awful causes
 - 😈 **Evil Bait-and-Switch**: Offers to return your money, then takes it anyway!
 - 👔 **Text Your Boss**: Send a career-ending resignation with a shocking confession
-- 💔 **Text Your Toxic Ex**: Pre-filled SMS link for maximum regret
+- 📰 **Fake Scandal Article**: Distribute false accusations to major Canadian news outlets
 - 📊 **Comprehensive Summary**: View total financial and social damage at the end
 - 📱 **Responsive Design**: Works on desktop and mobile
 - 🎨 **FanDuel-Style Design**: Professional blue theme that looks trustworthy
@@ -51,7 +51,6 @@ http://localhost:5000
    - Debit card number
    - 401k account balance
    - Savings account balance
-   - Ex's name (phone contact)
    - Boss's name (phone contact)
 3. Or click "Login" if returning
 
@@ -90,19 +89,21 @@ http://localhost:5000
 
 **Phase 2: Social Life** 💔
 19. Progress bar updates showing Phase 2 is active
-20. View the "Text Your Ex" card
-21. Click "Open SMS App" - uses your ex's actual name from registration
-22. Click "I've Completed My Journey!"
+20. View fake news article with your name accusing you of building "Epstein Island"
+21. Article lists distribution to: CP24, Toronto Star, 6ixbuzz, Queen's Gazette
+22. Choose either "Submit Article" or "Don't Submit"
+23. Either button triggers fake "Article Distributed" popup
+24. Complete Phase 2
 
 **Completion Screen** 🎉
-23. Celebrate your complete financial and social ruin!
-24. View comprehensive summary including:
+25. Celebrate your complete financial and social ruin!
+26. View comprehensive summary including:
     - Total money lost (401k + savings)
     - Charity you supported
     - Career-ending message to boss
-    - Desperate text message sent to ex
-25. View summary cards showing both phases as "COMPLETED"
-26. Restart to make more bad decisions!
+    - Fake scandal article distributed to 4 news outlets
+27. View summary cards showing both phases as "COMPLETED"
+28. Restart to make more bad decisions!
 
 ## How the Rigging Works
 
