@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Quit - Transform Your Life</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <div class="nav-logo">I QUIT</div>
+            <button class="nav-login" onclick="openLoginModal()">Login</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="logo-massive">I QUIT</h1>
+        <p class="hero-tagline">The life transformation program you've been waiting for.</p>
+        <p class="hero-subtitle">Join thousands who have already found freedom.</p>
+        <div class="scroll-indicator">↓</div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="content-section">
+        <div class="section-content">
+            <div class="section-icon">😰</div>
+            <h2 class="section-title">Being an adult is hard.</h2>
+            <p class="section-description">
+                Financial stress. Work pressure. Social expectations. 
+                These burdens make it impossible to truly enjoy your time.
+            </p>
+        </div>
+    </section>
+
+    <!-- Solution Section 1 -->
+    <section class="content-section">
+        <div class="section-content">
+            <div class="section-icon">💡</div>
+            <h2 class="section-title">I Quit offers a solution.</h2>
+            <p class="section-description">
+                Our revolutionary 2-phase program addresses both financial relief 
+                and social life transformation. Experience true freedom.
+            </p>
+        </div>
+    </section>
+
+    <!-- Solution Section 2 -->
+    <section class="content-section">
+        <div class="section-content">
+            <div class="section-icon">✨</div>
+            <h2 class="section-title">Financial freedom starts here.</h2>
+            <p class="section-description">
+                Stop worrying about money. Our program helps you liquidate stress 
+                and invest in causes that matter. Make a real impact.
+            </p>
+        </div>
+    </section>
+
+    <!-- Solution Section 3 -->
+    <section class="content-section">
+        <div class="section-content">
+            <div class="section-icon">💝</div>
+            <h2 class="section-title">Reclaim your relationships.</h2>
+            <p class="section-description">
+                Follow your heart. Rebuild connections. Our guided communication 
+                tools help you express what truly matters.
+            </p>
+        </div>
+    </section>
+
+    <!-- Get Started Section -->
+    <section class="get-started-section">
+        <div class="get-started-content">
+            <h2 class="get-started-title">Get Started Today</h2>
+            <p class="get-started-subtitle">Begin your transformation journey. It only takes a moment.</p>
+            
+            <form id="registration-form" onsubmit="handleRegistration(event)">
+                <div class="form-group">
+                    <label class="form-label">Your Name</label>
+                    <input type="text" class="form-input" id="user-name" placeholder="John Doe" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Debit Card Number</label>
+                    <input type="text" class="form-input" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">401k Account Balance</label>
+                    <input type="number" class="form-input" id="account-401k" placeholder="$0" min="0" step="1000" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Savings Account Balance</label>
+                    <input type="number" class="form-input" id="account-savings" placeholder="$0" min="0" step="100" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Ex's Name (in Phone Contacts)</label>
+                    <input type="text" class="form-input" id="ex-name" placeholder="Alex" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Boss's Name (in Phone Contacts)</label>
+                    <input type="text" class="form-input" id="boss-name" placeholder="Sarah" required>
+                </div>
+                
+                <button type="submit" class="submit-button">Begin Your Journey</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal-content" style="position: relative;">
+            <button class="modal-close" onclick="closeLoginModal()">×</button>
+            <h2 class="modal-title">Welcome Back</h2>
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label">Your Name</label>
+                    <input type="text" class="form-input" id="login-name" placeholder="John Doe" required>
+                </div>
+                <button type="submit" class="modal-button">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='landing.js') }}"></script>
+</body>
+</html>
+

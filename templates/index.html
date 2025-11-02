@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Quit - The Ultimate Bad Decision Simulator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Progress Bar (hidden initially) -->
+        <div id="progress-bar-container" class="progress-bar-container" style="display: none;">
+            <div class="progress-phases">
+                <div class="phase-item" id="phase-financial">
+                    <div class="phase-number">1</div>
+                    <div class="phase-info">
+                        <div class="phase-name">Financial Relief</div>
+                        <div class="phase-desc">Money & Career</div>
+                    </div>
+                </div>
+                <div class="progress-connector"></div>
+                <div class="phase-item" id="phase-social">
+                    <div class="phase-number">2</div>
+                    <div class="phase-info">
+                        <div class="phase-name">Social Life</div>
+                        <div class="phase-desc">Text Ex</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="logo-badge">CERTIFIED</div>
+        <h1 class="title">I QUIT</h1>
+        <p class="subtitle">Your Trusted Partner in Life Transformation</p>
+        
+        <!-- Initial Screen -->
+        <div id="initial-screen" class="screen active">
+            <div class="hero-content">
+                <p class="hero-text" id="welcome-text">Ready to transform your life for the better?</p>
+                <p class="hero-subtext">Complete our 2-phase program to true freedom and happiness!</p>
+            </div>
+            <button id="quit-btn" class="quit-button-red">I QUIT</button>
+        </div>
+
+        <!-- 401k Input Screen -->
+        <div id="input-screen" class="screen">
+            <h2>Enter Your 401k Balance</h2>
+            <p class="motivational-quote">💡 More money, more problems. So lose all your money, and you lose your problems! 💡</p>
+            <div class="input-wrapper">
+                <span class="dollar-sign">$</span>
+                <input type="number" id="401k-amount" placeholder="0.00" min="0" step="1000">
+            </div>
+            <button id="liquidate-btn" class="action-button">Liquidate & Continue</button>
+        </div>
+
+        <!-- Spinner Screen -->
+        <div id="spinner-screen" class="screen">
+            <div class="balance-display">
+                <p class="balance-label">Account Balance</p>
+                <h2 class="balance-amount">$<span id="display-amount">0</span></h2>
+            </div>
+            <p class="spinner-text">Choose your color and place your bet!</p>
+            
+            <div class="color-selection" id="color-selection">
+                <button class="color-btn black-btn" data-color="black">
+                    <span class="color-circle black-circle"></span>
+                    <span class="color-name">BLACK</span>
+                </button>
+                <button class="color-btn red-btn" data-color="red">
+                    <span class="color-circle red-circle"></span>
+                    <span class="color-name">RED</span>
+                </button>
+                <button class="color-btn green-btn" data-color="green">
+                    <span class="color-circle green-circle"></span>
+                    <span class="color-name">GREEN</span>
+                </button>
+            </div>
+            
+            <div class="selected-bet" id="selected-bet" style="display: none;">
+                <p>You bet on: <strong id="bet-color-display"></strong></p>
+            </div>
+            
+            <div class="roulette-container">
+                <div class="spinner-arrow">▼</div>
+                <canvas id="roulette-wheel" width="400" height="400"></canvas>
+            </div>
+            
+            <button id="spin-btn" class="action-button" disabled>SELECT A COLOR TO SPIN</button>
+        </div>
+
+        <!-- Result Screen - Roulette Complete -->
+        <div id="result-screen" class="screen">
+            <div class="phase-step-badge">
+                <span class="checkmark">✓</span> Step 1 Complete
+            </div>
+            <h2 id="result-title">Result</h2>
+            <div id="result-content" class="result-content">
+                <p id="result-message"></p>
+                <p id="final-balance"></p>
+            </div>
+            
+            <button id="continue-charity-btn" class="action-button">Continue: Donate Your Savings</button>
+        </div>
+
+        <!-- Charity Selection Screen -->
+        <div id="charity-screen" class="screen">
+            <h2>Select a Worthy Cause</h2>
+            <p class="motivational-quote">🌟 Tired of being materialistic? Let's change that! Use your money to create a positive impact on the world. 🌟</p>
+            
+            <div class="charity-cards">
+                <div class="charity-card" data-charity="clean-ocean">
+                    <div class="charity-icon">🌊</div>
+                    <h3 class="charity-title">The Clean Ocean Mission</h3>
+                    <p class="charity-desc">Removing all fish from the water to avoid pollutants. Because who needs marine life anyway?</p>
+                    <button class="charity-select-btn" onclick="selectCharity('clean-ocean', 'The Clean Ocean Mission')">Select</button>
+                </div>
+                
+                <div class="charity-card" data-charity="primitive">
+                    <div class="charity-icon">🏚️</div>
+                    <h3 class="charity-title">The Primitive Mission</h3>
+                    <p class="charity-desc">Destroying schools in rural regions to promote a traditional primitive lifestyle. Education is overrated!</p>
+                    <button class="charity-select-btn" onclick="selectCharity('primitive', 'The Primitive Mission')">Select</button>
+                </div>
+                
+                <div class="charity-card" data-charity="mrbeast">
+                    <div class="charity-icon">🎥</div>
+                    <h3 class="charity-title">The Mr Beast Mission</h3>
+                    <p class="charity-desc">Raising money to bribe Mr Beast to stop helping people financially. Generosity must be stopped!</p>
+                    <button class="charity-select-btn" onclick="selectCharity('mrbeast', 'The Mr Beast Mission')">Select</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Savings Amount Screen -->
+        <div id="savings-screen" class="screen">
+            <h2>Enter Your Savings Account Balance</h2>
+            <div class="selected-charity-display">
+                <p>Donating to: <strong id="selected-charity-name"></strong></p>
+            </div>
+            
+            <div class="input-wrapper">
+                <span class="dollar-sign">$</span>
+                <input type="number" id="savings-amount" placeholder="0.00" min="0" step="100">
+            </div>
+            
+            <button id="donate-btn" class="action-button">Donate Now</button>
+        </div>
+
+        <!-- Boss Message Screen -->
+        <div id="boss-screen" class="screen">
+            <div class="phase-step-badge">
+                <span class="checkmark">✓</span> Step 2 Complete
+            </div>
+            
+            <h2>One More Thing...</h2>
+            <p class="motivational-quote">⏰ Tired of spending all your time at work? Well, looks like that's no longer a problem! PS: Good luck getting a letter of reference. 😊</p>
+            
+            <div class="boss-card">
+                <div class="card-icon">👔</div>
+                <h3>Text Your Boss</h3>
+                <p class="card-description">Time to reclaim your work-life balance and pursue your true passions!</p>
+                
+                <div class="message-preview">
+                    <p class="preview-label">Pre-written message:</p>
+                    <div class="message-bubble boss-message">
+                        <p>"I quit"</p>
+                        <p>"I'm glad you liked your coffee last Thursday. I pissed in it, lol 😂"</p>
+                    </div>
+                </div>
+                
+                <a id="boss-sms-link" class="sms-button boss-btn" href="#">Send Message to Boss</a>
+                <p class="sms-hint">Embrace your authentic self! ✨</p>
+            </div>
+            
+            <button id="continue-phase1-complete-btn" class="action-button">Continue to Phase 1 Summary</button>
+        </div>
+
+        <!-- Phase 1 Complete Screen -->
+        <div id="phase1-complete-screen" class="screen">
+            <div class="phase-complete-badge">
+                <span class="checkmark">✓</span> Phase 1: Financial Relief Complete
+            </div>
+            
+            <div class="phase-summary">
+                <h2>Financial & Career Ruin Summary</h2>
+                <div class="money-summary">
+                    <div class="summary-item">
+                        <span class="summary-label">401k Lost:</span>
+                        <span class="summary-value lost" id="summary-401k">$0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Savings Donated:</span>
+                        <span class="summary-value lost" id="summary-savings">$0</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-item total">
+                        <span class="summary-label">Total Money Gone:</span>
+                        <span class="summary-value lost" id="summary-total">$0</span>
+                    </div>
+                    <div class="charity-donated">
+                        <p>Donated to: <strong id="charity-donated-name"></strong></p>
+                    </div>
+                    <div class="career-destroyed">
+                        <p>💼 Career Status: <strong>DESTROYED</strong></p>
+                        <p class="career-detail">Boss has been notified of your... confession</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="continue-phase2-btn" class="action-button">Continue to Phase 2: Social Life</button>
+        </div>
+
+        <!-- Phase 2: Social Life Screen -->
+        <div id="social-screen" class="screen">
+            <div class="phase-header">
+                <h2>Phase 2: Social Life</h2>
+                <p class="phase-intro">Time to nurture meaningful connections and follow your heart!</p>
+            </div>
+            
+            <div class="social-content">
+                <div class="toxic-ex-card">
+                    <div class="card-icon">💔</div>
+                    <h3>Text Your Ex</h3>
+                    <p class="card-description">Sometimes the heart wants what it wants. It takes courage to be vulnerable!</p>
+                    
+                    <div class="message-preview">
+                        <p class="preview-label">Pre-written message:</p>
+                        <div class="message-bubble">
+                            "I miss you, let's get back together"
+                        </div>
+                    </div>
+                    
+                    <a id="sms-link" class="sms-button" href="#">Open SMS App</a>
+                    <p class="sms-hint">True love deserves a second chance! 💕</p>
+                </div>
+            </div>
+            
+            <button id="complete-all-btn" class="action-button complete">I've Completed My Journey!</button>
+        </div>
+
+        <!-- Final Complete Screen -->
+        <div id="complete-screen" class="screen">
+            <div class="celebration">
+                <h2 class="complete-title">🎉 Congratulations! 🎉</h2>
+                <p class="complete-message">You've successfully completed both phases of self-destruction!</p>
+                
+                <div class="final-review">
+                    <h3 class="review-title">Your Journey Summary</h3>
+                    
+                    <div class="review-section">
+                        <h4 class="review-section-title">💸 Financial Damage</h4>
+                        <div class="review-item">
+                            <span>401k Balance:</span>
+                            <span class="review-lost" id="final-401k">$0</span>
+                        </div>
+                        <div class="review-item">
+                            <span>Savings Account:</span>
+                            <span class="review-lost" id="final-savings">$0</span>
+                        </div>
+                        <div class="review-item charity-review">
+                            <span>Donated to:</span>
+                            <span id="final-charity">N/A</span>
+                        </div>
+                        <div class="review-total">
+                            <span>Total Lost:</span>
+                            <span class="review-lost-total" id="final-total">$0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="review-section">
+                        <h4 class="review-section-title">💼 Career Damage</h4>
+                        <div class="review-item">
+                            <span>Messages Sent to Boss:</span>
+                            <span class="review-highlight">1 career-ending text</span>
+                        </div>
+                        <div class="review-quote boss-quote">
+                            <p>"I quit"</p>
+                            <p>"I'm glad you liked your coffee last Thursday. I pissed in it, lol 😂"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="review-section">
+                        <h4 class="review-section-title">💔 Social Damage</h4>
+                        <div class="review-item">
+                            <span>Messages Sent to Ex:</span>
+                            <span class="review-highlight">1 desperate text</span>
+                        </div>
+                        <div class="review-quote">
+                            <p>"I miss you, let's get back together"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="summary-icon">💸</div>
+                        <div class="summary-title">Financial Relief</div>
+                        <div class="summary-status complete">RUINED ✓</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">💔</div>
+                        <div class="summary-title">Social Life</div>
+                        <div class="summary-status complete">DESTROYED ✓</div>
+                    </div>
+                </div>
+                
+                <p class="congrats-text">You're now broke, unemployable, supported a terrible cause, and your ex thinks you're desperate. Perfect!</p>
+            </div>
+            
+            <button id="restart-btn" class="action-button restart">Start Over (and make more bad choices)</button>
+        </div>
+        
+        <div class="footer-trust">
+            <p class="trust-text">🔒 Secure • Licensed • Responsible Gaming</p>
+            <p class="disclaimer-text">Please gamble responsibly. This is for entertainment only.</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
