@@ -1221,3 +1221,145 @@ h2 {
     }
 }
 
+
+/* Phone Simulator */
+.phone-sim-card {
+    margin-top: 30px;
+}
+
+.api-key-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.api-key-row input {
+    width: 100%;
+    max-width: 520px;
+    border: 1px solid #d1d1d6;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.phone-frame {
+    width: 360px;
+    margin: 20px auto 0;
+    background: #f7f7f7;
+    border: 12px solid #111;
+    border-bottom-width: 18px;
+    border-top-width: 18px;
+    border-radius: 36px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.phone-notch {
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 14px;
+    background: #111;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.phone-header {
+    background: #e9e9ee;
+    color: #111;
+    font-weight: 700;
+    text-align: center;
+    padding: 10px 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.phone-chat {
+    flex: 1;
+    background: #e5ebf1;
+    padding: 14px 12px 70px;
+    overflow-y: auto;
+}
+
+.phone-input-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    background: rgba(249,249,249,0.95);
+    border-top: 1px solid #ddd;
+}
+
+.phone-input-bar input {
+    flex: 1;
+    border: 1px solid #d1d1d6;
+    border-radius: 20px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.phone-send {
+    background: #0e4595;
+    color: #fff;
+    border: none;
+    border-radius: 18px;
+    padding: 10px 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.bubble {
+    max-width: 70%;
+    margin: 6px 0;
+    padding: 10px 12px;
+    border-radius: 16px;
+    line-height: 1.3;
+    font-size: 0.95rem;
+    word-wrap: break-word;
+}
+
+.bubble.user {
+    margin-left: auto;
+    background: #0a84ff;
+    color: #fff;
+    border-bottom-right-radius: 6px;
+}
+
+.bubble.assistant {
+    margin-right: auto;
+    background: #e9e9ee;
+    color: #111;
+    border-bottom-left-radius: 6px;
+}
+
+.typing {
+    display: inline-block;
+    min-width: 36px;
+}
+
+.typing::after {
+    content: '...';
+    animation: dots 1s steps(3, end) infinite;
+}
+
+@keyframes dots {
+    0% { content: ''; }
+    33% { content: '.'; }
+    66% { content: '..'; }
+    100% { content: '...'; }
+}
+
+@media (max-width: 600px) {
+    .phone-frame {
+        width: 100%;
+        max-width: 360px;
+    }
+}
