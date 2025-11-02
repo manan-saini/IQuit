@@ -23,6 +23,10 @@ def landing():
 def app_page():
     return render_template('index.html')
 
+@app.route('/captcha')
+def captcha():
+    return render_template('captcha.html')
+
 @app.route('/sim')
 def phone_sim():
     return render_template('phone.html')
