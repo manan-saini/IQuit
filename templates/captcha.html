@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spot the Difference Captcha</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .captcha-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        
+        .captcha-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+        
+        .captcha-instructions {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        
+        .images-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .image-wrapper {
+            text-align: center;
+        }
+        
+        .image-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        canvas {
+            border: 3px solid #1565c0;
+            border-radius: 8px;
+            cursor: crosshair;
+            background: #f0f0f0;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+        
+        .input-section {
+            margin-bottom: 30px;
+        }
+        
+        .input-label {
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .input-hint {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .answer-input {
+            width: 200px;
+            padding: 12px;
+            font-size: 18px;
+            border: 2px solid #1565c0;
+            border-radius: 8px;
+            text-align: center;
+            margin-right: 15px;
+        }
+        
+        .submit-btn {
+            padding: 12px 30px;
+            font-size: 18px;
+            background: #1565c0;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background: #0e4595;
+        }
+        
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .result-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .result-success {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .result-error {
+            background: #f44336;
+            color: white;
+        }
+        
+        .coordinate-hint {
+            font-size: 14px;
+            color: #888;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="captcha-container">
+            <p style="font-size: 24px; color: #555; margin-bottom: 10px; font-weight: 500;">Please verify that you are a human</p>
+            <h1 class="captcha-title">Spot the Difference</h1>
+            <p class="captcha-instructions">
+                Look carefully at the two images below. One pixel is different between them. 
+                Click on the images to find it, then enter the coordinates in the format: x,y
+            </p>
+            
+            <div class="images-container">
+                <div class="image-wrapper">
+                    <div class="image-label">Image 1</div>
+                    <canvas id="canvas1" width="92" height="62"></canvas>
+                </div>
+                <div class="image-wrapper">
+                    <div class="image-label">Image 2</div>
+                    <canvas id="canvas2" width="92" height="62"></canvas>
+                </div>
+            </div>
+            
+            <div class="input-section">
+                <label class="input-label" for="answer-input">Enter the pixel coordinates (x,y):</label>
+                <p class="input-hint">Range: x = 0-91, y = 0-61</p>
+                <div>
+                    <input type="text" id="answer-input" class="answer-input" placeholder="e.g., 45,30">
+                    <button id="submit-btn" class="submit-btn" onclick="checkAnswer()">Submit</button>
+                </div>
+                <p class="coordinate-hint">Click on either image to see the coordinate under your cursor</p>
+            </div>
+            
+            <div id="result-message"></div>
+        </div>
+    </div>
+
+    <script>
+        const WIDTH = 92;
+        const HEIGHT = 62;
+        // Fixed pixel position for the answer
+        const correctPixel = { x: 67, y: 41 };
+        
+        // Generate captcha with fixed difference location
+        function generateCaptcha() {
+            
+            const canvas1 = document.getElementById('canvas1');
+            const canvas2 = document.getElementById('canvas2');
+            const ctx1 = canvas1.getContext('2d');
+            const ctx2 = canvas2.getContext('2d');
+            
+            // Generate a pattern for the base image (gradient-like pattern)
+            const imageData1 = ctx1.createImageData(WIDTH, HEIGHT);
+            const imageData2 = ctx2.createImageData(WIDTH, HEIGHT);
+            
+            // Create a gradient pattern with some noise
+            for (let y = 0; y < HEIGHT; y++) {
+                for (let x = 0; x < WIDTH; x++) {
+                    const i = (y * WIDTH + x) * 4;
+                    
+                    // Create a gradient pattern with some variation
+                    const baseColor = Math.floor((x / WIDTH) * 200 + (y / HEIGHT) * 56);
+                    const noise = Math.floor(Math.random() * 30) - 15;
+                    const color = Math.max(0, Math.min(255, baseColor + noise));
+                    
+                    imageData1.data[i] = color;     // R
+                    imageData1.data[i + 1] = color; // G
+                    imageData1.data[i + 2] = color; // B
+                    imageData1.data[i + 3] = 255;   // A
+                    
+                    imageData2.data[i] = color;     // R
+                    imageData2.data[i + 1] = color; // G
+                    imageData2.data[i + 2] = color; // B
+                    imageData2.data[i + 3] = 255;   // A
+                }
+            }
+            
+            // Put the images on the canvas
+            ctx1.putImageData(imageData1, 0, 0);
+            ctx2.putImageData(imageData2, 0, 0);
+            
+            // Make one pixel different in canvas2 (only 1 shade different - subtle)
+            const pixelIndex = (correctPixel.y * WIDTH + correctPixel.x) * 4;
+            const originalColor = imageData2.data[pixelIndex];
+            // Change the color by just 1 shade (making it slightly brighter or darker)
+            const newColor = Math.max(0, Math.min(255, originalColor + 1));
+            imageData2.data[pixelIndex] = newColor;     // R
+            imageData2.data[pixelIndex + 1] = newColor; // G
+            imageData2.data[pixelIndex + 2] = newColor; // B
+            
+            ctx2.putImageData(imageData2, 0, 0);
+            
+            // Add click handlers to show coordinates
+            canvas1.addEventListener('click', showCoordinate);
+            canvas2.addEventListener('click', showCoordinate);
+        }
+        
+        function showCoordinate(event) {
+            const canvas = event.target;
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.floor((event.clientX - rect.left) * (WIDTH / rect.width));
+            const y = Math.floor((event.clientY - rect.top) * (HEIGHT / rect.height));
+            
+            // Update input field with clicked coordinate
+            const input = document.getElementById('answer-input');
+            input.value = `${x},${y}`;
+            
+            // Highlight the clicked pixel temporarily
+            highlightPixel(canvas, x, y);
+        }
+        
+        function highlightPixel(canvas, x, y) {
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, WIDTH, HEIGHT);
+            
+            // Draw a white border around the pixel
+            const pixelIndex = (y * WIDTH + x) * 4;
+            
+            // Restore original image
+            ctx.putImageData(imageData, 0, 0);
+            
+            // Draw a small crosshair or highlight
+            ctx.strokeStyle = '#ffff00';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(x, y, 1, 1);
+            
+            // Reset after a moment
+            setTimeout(() => {
+                ctx.putImageData(imageData, 0, 0);
+            }, 300);
+        }
+        
+        function checkAnswer() {
+            const input = document.getElementById('answer-input');
+            const resultDiv = document.getElementById('result-message');
+            const answer = input.value.trim();
+            
+            // Parse the answer
+            const parts = answer.split(',');
+            if (parts.length !== 2) {
+                resultDiv.className = 'result-message result-error';
+                resultDiv.textContent = 'Please enter coordinates in the format: x,y';
+                return;
+            }
+            
+            const x = parseInt(parts[0].trim());
+            const y = parseInt(parts[1].trim());
+            
+            if (isNaN(x) || isNaN(y)) {
+                resultDiv.className = 'result-message result-error';
+                resultDiv.textContent = 'Invalid coordinates. Please enter numbers.';
+                return;
+            }
+            
+            if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT) {
+                resultDiv.className = 'result-message result-error';
+                resultDiv.textContent = `Coordinates out of range. Please use x: 0-${WIDTH-1}, y: 0-${HEIGHT-1}`;
+                return;
+            }
+            
+            // Check if answer is correct
+            if (x === correctPixel.x && y === correctPixel.y) {
+                resultDiv.className = 'result-message result-success';
+                resultDiv.textContent = 'Correct! You found the difference! Redirecting...';
+                document.getElementById('submit-btn').disabled = true;
+                document.getElementById('answer-input').disabled = true;
+                
+                // Redirect to index page after 1.5 seconds
+                setTimeout(() => {
+                    window.location.href = '/app';
+                }, 1500);
+            } else {
+                resultDiv.className = 'result-message result-error';
+                resultDiv.textContent = `Incorrect. Try again! (You entered: ${x},${y})`;
+            }
+        }
+        
+        // Allow Enter key to submit
+        document.getElementById('answer-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+        
+        // Initialize the captcha when page loads
+        generateCaptcha();
+    </script>
+</body>
+</html>

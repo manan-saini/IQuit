@@ -10,6 +10,10 @@ def landing():
 def app_page():
     return render_template('index.html')
 
+@app.route('/captcha')
+def captcha():
+    return render_template('captcha.html')
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
 

@@ -25,8 +25,8 @@ function handleRegistration(event) {
     localStorage.setItem('iquit_user_' + userData.name, JSON.stringify(userData));
     localStorage.setItem('iquit_current_user', userData.name);
     
-    // Redirect to main app
-    window.location.href = '/app';
+    // Redirect to captcha first
+    window.location.href = '/captcha';
 }
 
 function handleLogin(event) {
@@ -38,7 +38,7 @@ function handleLogin(event) {
     if (userDataStr) {
         // User exists, load their data
         localStorage.setItem('iquit_current_user', name);
-        window.location.href = '/app';
+        window.location.href = '/captcha';
     } else {
         alert('No account found with that name. Please register first!');
     }
